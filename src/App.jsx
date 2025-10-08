@@ -136,16 +136,16 @@ useEffect(() => {
   }
 
   return (
-    <AuthContext.Provider value={authMethods}>
+<AuthContext.Provider value={authMethods}>
       <div className="flex min-h-screen bg-[#f8fafc]">
-{isAuthenticated && <Sidebar />}
+        {isAuthenticated && <Sidebar currentUser={user} />}
         <main className={`flex-1 ${isAuthenticated ? 'lg:ml-0' : ''} p-6 lg:p-8 overflow-x-hidden`}>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/error" element={<ErrorPage />} />
-<Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
+            <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
             <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
             <Route path="/" element={isAuthenticated ? <Dashboard currentUser={user} /> : <Login />} />
             <Route path="/projects" element={isAuthenticated ? <Projects currentUser={user} /> : <Login />} />

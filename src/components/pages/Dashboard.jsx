@@ -22,10 +22,17 @@ const Dashboard = ({ currentUser }) => {
   const [error, setError] = useState("");
   const [selectedTask, setSelectedTask] = useState(null);
 
+  // Debug logging to verify currentUser structure
   useEffect(() => {
-    loadData();
+    console.log('Dashboard - currentUser:', currentUser);
+    console.log('Dashboard - currentUser.role:', currentUser?.role);
   }, [currentUser]);
 
+  useEffect(() => {
+    if (currentUser) {
+      loadData();
+    }
+  }, [currentUser]);
   const loadData = async () => {
     setLoading(true);
     setError("");
@@ -263,20 +270,27 @@ const Dashboard = ({ currentUser }) => {
     );
   };
 
-  return (
+return (
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Welcome back, {currentUser.name}!
+          Welcome back, {currentUser?.name || 'User'}!
         </h1>
         <p className="text-gray-600">
           Here's what's happening with your projects today.
         </p>
       </div>
 
-      {currentUser.role === "admin" && renderAdminDashboard()}
-      {currentUser.role === "project_manager" && renderManagerDashboard()}
-      {currentUser.role === "member" && renderMemberDashboard()}
+      {currentUser?.role === "admin" && renderAdminDashboard()}
+      {currentUser?.role === "project_manager" && renderManagerDashboard()}
+      {currentUser?.role === "member" && renderMemberDashboard()}
+      {!currentUser?.role && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <p className="text-yellow-800">
+            Unable to determine user role. Please refresh the page or contact support.
+          </p>
+        </div>
+      )}
 
       {selectedTask && (
         <TaskDetailModal

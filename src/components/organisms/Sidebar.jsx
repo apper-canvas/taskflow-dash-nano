@@ -14,7 +14,7 @@ const Sidebar = ({ currentUser }) => {
   ];
 
   const filteredNavigation = navigation.filter((item) =>
-    item.roles.includes(currentUser?.role)
+    currentUser?.role ? item.roles.includes(currentUser.role) : false
   );
 
   const NavItem = ({ item, mobile = false }) => (
