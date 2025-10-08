@@ -10,8 +10,29 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = JSON.parse(JSON.stringify(action.payload));
-      state.isAuthenticated = !!action.payload;
+      // Validate and normalize user object to prevent undefined property errors
+      if (action.payload) {
+        const validatedUser = {
+          ...action.payload,
+          // Ensure role is always defined - check multiple possible locations
+          role: action.payload.role || 
+                action.payload.accounts?.[0]?.role || 
+                'user',
+          // Normalize name from various possible properties
+          name: action.payload.name || 
+                action.payload.firstName || 
+                'User',
+          // Normalize email from possible properties
+          email: action.payload.email || 
+                 action.payload.emailAddress || 
+                 ''
+        };
+        state.user = JSON.parse(JSON.stringify(validatedUser));
+        state.isAuthenticated = true;
+      } else {
+        state.user = null;
+        state.isAuthenticated = false;
+      }
     },
     clearUser: (state) => {
       state.user = null;
