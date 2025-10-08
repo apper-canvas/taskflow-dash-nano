@@ -14,10 +14,16 @@ export const userSlice = createSlice({
       if (action.payload) {
         const validatedUser = {
           ...action.payload,
-          // Ensure role is always defined - check multiple possible locations
+// Ensure role is always defined - check multiple possible locations
           role: action.payload.role || 
                 action.payload.accounts?.[0]?.role || 
-                'user',
+                action.payload.accounts?.[0]?.UserRole ||
+                action.payload.UserRole ||
+                (() => {
+                  // Debug logging if role not found
+                  console.log('Redux: Role not found in expected locations. Payload:', action.payload);
+                  return 'user';
+                })(),
           // Normalize name from various possible properties
           name: action.payload.name || 
                 action.payload.firstName || 

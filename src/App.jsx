@@ -46,12 +46,26 @@ useEffect(() => {
           const isAuthPage = currentPath.includes('/login') || currentPath.includes('/signup') || 
                              currentPath.includes('/callback') || currentPath.includes('/error') || 
                              currentPath.includes('/prompt-password') || currentPath.includes('/reset-password');
-          
-          if (user) {
+if (user) {
             // Validate and sanitize user object before storing
+            // Check multiple possible locations for role property
+            let userRole = user.role || 
+                          user.accounts?.[0]?.role || 
+                          user.accounts?.[0]?.UserRole ||
+                          user.UserRole ||
+                          'user';
+            
+            // Debug logging to help identify user object structure
+            if (!user.role && !user.accounts?.[0]?.role && !user.accounts?.[0]?.UserRole && !user.UserRole) {
+              console.log('Role not found in expected locations. User object structure:', JSON.stringify(user, null, 2));
+              console.log('Available accounts:', user.accounts);
+            } else {
+              console.log('User role identified:', userRole);
+            }
+            
             const validatedUser = {
               ...user,
-              role: user.role || user.accounts?.[0]?.role || 'user',
+              role: userRole,
               name: user.name || user.firstName || 'User',
               email: user.email || user.emailAddress || ''
             };
