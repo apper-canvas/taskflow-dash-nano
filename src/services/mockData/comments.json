@@ -1,0 +1,51 @@
+[
+  {
+    "Id": 1,
+    "taskId": 2,
+    "userId": 3,
+    "content": "Started working on the search implementation. Setting up Elasticsearch first.",
+    "createdAt": "2024-02-10T09:30:00Z"
+  },
+  {
+    "Id": 2,
+    "taskId": 2,
+    "userId": 2,
+    "content": "Great! Make sure to include product categories in the search filters.",
+    "createdAt": "2024-02-10T10:15:00Z"
+  },
+  {
+    "Id": 3,
+    "taskId": 3,
+    "userId": 6,
+    "content": "Completed the implementation. Ready for code review.",
+    "createdAt": "2024-02-25T16:45:00Z"
+  },
+  {
+    "Id": 4,
+    "taskId": 6,
+    "userId": 6,
+    "content": "Login and signup screens are done. Working on password reset flow now.",
+    "createdAt": "2024-02-18T11:20:00Z"
+  },
+  {
+    "Id": 5,
+    "taskId": 9,
+    "userId": 4,
+    "content": "Identified 15 high-value keywords for our target audience. Preparing content calendar.",
+    "createdAt": "2024-03-01T14:00:00Z"
+  },
+  {
+    "Id": 6,
+    "taskId": 11,
+    "userId": 3,
+    "content": "Document upload is working. Currently integrating virus scanning API.",
+    "createdAt": "2024-02-26T10:30:00Z"
+  },
+  {
+    "Id": 7,
+    "taskId": 12,
+    "userId": 7,
+    "content": "Chat widget integrated and styled. Needs final review before deployment.",
+    "createdAt": "2024-03-08T15:20:00Z"
+  }
+]

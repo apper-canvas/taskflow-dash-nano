@@ -1,0 +1,68 @@
+[
+  {
+    "Id": 1,
+    "title": "E-Commerce Platform Redesign",
+    "description": "Complete overhaul of the company's e-commerce platform with modern UI/UX, improved performance, and mobile optimization.",
+    "managerId": 2,
+    "status": "active",
+    "startDate": "2024-01-15",
+    "endDate": "2024-04-30",
+    "teamMembers": [3, 4, 6],
+    "createdAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "title": "Mobile App Development",
+    "description": "Native iOS and Android mobile application for customer engagement and loyalty program.",
+    "managerId": 5,
+    "status": "active",
+    "startDate": "2024-02-01",
+    "endDate": "2024-06-15",
+    "teamMembers": [3, 6, 7],
+    "createdAt": "2024-02-01T09:00:00Z"
+  },
+  {
+    "Id": 3,
+    "title": "Marketing Website Launch",
+    "description": "New marketing website with content management system, blog, and lead generation forms.",
+    "managerId": 8,
+    "status": "planning",
+    "startDate": "2024-03-01",
+    "endDate": "2024-05-15",
+    "teamMembers": [4, 6],
+    "createdAt": "2024-02-20T14:00:00Z"
+  },
+  {
+    "Id": 4,
+    "title": "Customer Portal Enhancement",
+    "description": "Add new features to customer portal including document management, live chat, and knowledge base.",
+    "managerId": 2,
+    "status": "active",
+    "startDate": "2024-01-20",
+    "endDate": "2024-03-31",
+    "teamMembers": [3, 7],
+    "createdAt": "2024-01-20T11:00:00Z"
+  },
+  {
+    "Id": 5,
+    "title": "Data Analytics Dashboard",
+    "description": "Internal dashboard for real-time business metrics, reporting, and data visualization.",
+    "managerId": 5,
+    "status": "on-hold",
+    "startDate": "2024-02-15",
+    "endDate": "2024-05-30",
+    "teamMembers": [6],
+    "createdAt": "2024-02-15T10:30:00Z"
+  },
+  {
+    "Id": 6,
+    "title": "API Integration Project",
+    "description": "Integrate third-party APIs for payment processing, shipping, and inventory management.",
+    "managerId": 2,
+    "status": "completed",
+    "startDate": "2023-11-01",
+    "endDate": "2024-01-15",
+    "teamMembers": [3],
+    "createdAt": "2023-11-01T09:00:00Z"
+  }
+]

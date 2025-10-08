@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "userId": 4,
+    "action": "Completed task: Design new homepage layout",
+    "entityType": "task",
+    "entityId": 1,
+    "timestamp": "2024-02-15T16:30:00Z"
+  },
+  {
+    "Id": 2,
+    "userId": 3,
+    "action": "Started working on: Implement product search functionality",
+    "entityType": "task",
+    "entityId": 2,
+    "timestamp": "2024-02-10T09:00:00Z"
+  },
+  {
+    "Id": 3,
+    "userId": 2,
+    "action": "Created project: E-Commerce Platform Redesign",
+    "entityType": "project",
+    "entityId": 1,
+    "timestamp": "2024-01-15T10:00:00Z"
+  },
+  {
+    "Id": 4,
+    "userId": 6,
+    "action": "Submitted for review: Optimize checkout flow",
+    "entityType": "task",
+    "entityId": 3,
+    "timestamp": "2024-02-25T16:45:00Z"
+  },
+  {
+    "Id": 5,
+    "userId": 1,
+    "action": "Added new team member: Tom QA Engineer",
+    "entityType": "user",
+    "entityId": 7,
+    "timestamp": "2024-01-21T13:30:00Z"
+  },
+  {
+    "Id": 6,
+    "userId": 8,
+    "action": "Created project: Marketing Website Launch",
+    "entityType": "project",
+    "entityId": 3,
+    "timestamp": "2024-02-20T14:00:00Z"
+  },
+  {
+    "Id": 7,
+    "userId": 5,
+    "action": "Updated project status to On-Hold: Data Analytics Dashboard",
+    "entityType": "project",
+    "entityId": 5,
+    "timestamp": "2024-02-28T11:00:00Z"
+  },
+  {
+    "Id": 8,
+    "userId": 3,
+    "action": "Completed task: Setup React Native project structure",
+    "entityType": "task",
+    "entityId": 5,
+    "timestamp": "2024-02-05T17:00:00Z"
+  },
+  {
+    "Id": 9,
+    "userId": 7,
+    "action": "Submitted for review: Setup live chat widget",
+    "entityType": "task",
+    "entityId": 12,
+    "timestamp": "2024-03-08T15:30:00Z"
+  },
+  {
+    "Id": 10,
+    "userId": 2,
+    "action": "Completed project: API Integration Project",
+    "entityType": "project",
+    "entityId": 6,
+    "timestamp": "2024-01-15T18:00:00Z"
+  }
+]

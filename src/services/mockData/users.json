@@ -1,0 +1,66 @@
+[
+  {
+    "Id": 1,
+    "name": "John Admin",
+    "email": "admin@taskflow.com",
+    "role": "admin",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+    "createdAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "name": "Sarah Manager",
+    "email": "sarah@taskflow.com",
+    "role": "project_manager",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    "createdAt": "2024-01-16T09:30:00Z"
+  },
+  {
+    "Id": 3,
+    "name": "Mike Developer",
+    "email": "mike@taskflow.com",
+    "role": "member",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
+    "createdAt": "2024-01-17T11:00:00Z"
+  },
+  {
+    "Id": 4,
+    "name": "Emily Designer",
+    "email": "emily@taskflow.com",
+    "role": "member",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+    "createdAt": "2024-01-18T14:20:00Z"
+  },
+  {
+    "Id": 5,
+    "name": "David Manager",
+    "email": "david@taskflow.com",
+    "role": "project_manager",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    "createdAt": "2024-01-19T08:45:00Z"
+  },
+  {
+    "Id": 6,
+    "name": "Lisa Developer",
+    "email": "lisa@taskflow.com",
+    "role": "member",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa",
+    "createdAt": "2024-01-20T10:15:00Z"
+  },
+  {
+    "Id": 7,
+    "name": "Tom QA Engineer",
+    "email": "tom@taskflow.com",
+    "role": "member",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom",
+    "createdAt": "2024-01-21T13:30:00Z"
+  },
+  {
+    "Id": 8,
+    "name": "Anna Product Manager",
+    "email": "anna@taskflow.com",
+    "role": "project_manager",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=Anna",
+    "createdAt": "2024-01-22T09:00:00Z"
+  }
+]
