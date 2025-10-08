@@ -1,56 +1,181 @@
-import commentsData from "../mockData/comments.json";
+const { ApperClient } = window.ApperSDK;
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-let comments = [...commentsData];
+const apperClient = new ApperClient({
+  apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+  apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+});
 
 const commentService = {
   async getAll() {
-    await delay(300);
-    return [...comments];
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "task_id_c" } },
+          { field: { Name: "user_id_c" } },
+          { field: { Name: "content_c" } },
+          { field: { Name: "created_at_c" } }
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords("comment_c", params);
+      
+      if (!response.success) {
+        console.error("Failed to fetch comments:", response.message);
+        return [];
+      }
+      
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      return [];
+    }
   },
 
   async getById(id) {
-    await delay(200);
-    const comment = comments.find((c) => c.Id === parseInt(id));
-    if (!comment) throw new Error("Comment not found");
-    return { ...comment };
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "task_id_c" } },
+          { field: { Name: "user_id_c" } },
+          { field: { Name: "content_c" } },
+          { field: { Name: "created_at_c" } }
+        ]
+      };
+      
+      const response = await apperClient.getRecordById("comment_c", parseInt(id), params);
+      
+      if (!response.success) {
+        throw new Error(response.message || "Comment not found");
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching comment ${id}:`, error);
+      throw error;
+    }
   },
 
   async getByTask(taskId) {
-    await delay(300);
-    return comments
-      .filter((c) => c.taskId === parseInt(taskId))
-      .map((c) => ({ ...c }));
+    try {
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "task_id_c" } },
+          { field: { Name: "user_id_c" } },
+          { field: { Name: "content_c" } },
+          { field: { Name: "created_at_c" } }
+        ],
+        where: [
+          {
+            FieldName: "task_id_c",
+            Operator: "EqualTo",
+            Values: [parseInt(taskId)]
+          }
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords("comment_c", params);
+      
+      if (!response.success) {
+        console.error("Failed to fetch comments by task:", response.message);
+        return [];
+      }
+      
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching comments by task:", error);
+      return [];
+    }
   },
 
   async create(commentData) {
-    await delay(400);
-    const maxId = comments.reduce((max, c) => (c.Id > max ? c.Id : max), 0);
-    const newComment = {
-      Id: maxId + 1,
-      ...commentData,
-      createdAt: new Date().toISOString(),
-    };
-    comments.push(newComment);
-    return { ...newComment };
+    try {
+      const params = {
+        records: [
+          {
+            Name: "Comment",
+            task_id_c: parseInt(commentData.task_id_c || commentData.taskId),
+            user_id_c: parseInt(commentData.user_id_c || commentData.userId),
+            content_c: commentData.content_c || commentData.content
+          }
+        ]
+      };
+      
+      const response = await apperClient.createRecord("comment_c", params);
+      
+      if (!response.success) {
+        console.error("Failed to create comment:", response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results && response.results.length > 0) {
+        const result = response.results[0];
+        if (!result.success) {
+          throw new Error(result.message || "Failed to create comment");
+        }
+        return result.data;
+      }
+      
+      throw new Error("No result returned from create operation");
+    } catch (error) {
+      console.error("Error creating comment:", error);
+      throw error;
+    }
   },
 
   async update(id, commentData) {
-    await delay(300);
-    const index = comments.findIndex((c) => c.Id === parseInt(id));
-    if (index === -1) throw new Error("Comment not found");
-    comments[index] = { ...comments[index], ...commentData };
-    return { ...comments[index] };
+    try {
+      const params = {
+        records: [
+          {
+            Id: parseInt(id),
+            content_c: commentData.content_c || commentData.content
+          }
+        ]
+      };
+      
+      const response = await apperClient.updateRecord("comment_c", params);
+      
+      if (!response.success) {
+        console.error("Failed to update comment:", response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results && response.results.length > 0) {
+        const result = response.results[0];
+        if (!result.success) {
+          throw new Error(result.message || "Failed to update comment");
+        }
+        return result.data;
+      }
+      
+      throw new Error("No result returned from update operation");
+    } catch (error) {
+      console.error("Error updating comment:", error);
+      throw error;
+    }
   },
 
   async delete(id) {
-    await delay(300);
-    const index = comments.findIndex((c) => c.Id === parseInt(id));
-    if (index === -1) throw new Error("Comment not found");
-    comments.splice(index, 1);
-    return { success: true };
-  },
+    try {
+      const params = {
+        RecordIds: [parseInt(id)]
+      };
+      
+      const response = await apperClient.deleteRecord("comment_c", params);
+      
+      if (!response.success) {
+        console.error("Failed to delete comment:", response.message);
+        throw new Error(response.message);
+      }
+      
+      return { success: true };
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      throw error;
+    }
+  }
 };
-
 export default commentService;
