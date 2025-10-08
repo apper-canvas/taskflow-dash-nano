@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Input from "@/components/atoms/Input";
-import Select from "@/components/atoms/Select";
-import SearchBar from "@/components/molecules/SearchBar";
-import UserCard from "@/components/molecules/UserCard";
-import RoleBadge from "@/components/molecules/RoleBadge";
-import Modal from "@/components/organisms/Modal";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import RoleBadge from "@/components/molecules/RoleBadge";
+import UserCard from "@/components/molecules/UserCard";
+import Error from "@/components/ui/Error";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import Modal from "@/components/organisms/Modal";
+import Select from "@/components/atoms/Select";
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
 import userService from "@/services/api/userService";
 
 const Users = ({ currentUser = {} }) => {
@@ -34,7 +34,7 @@ const Users = ({ currentUser = {} }) => {
     loadData();
   }, []);
 
-  const loadData = async () => {
+const loadData = async () => {
     setLoading(true);
     setError("");
     try {
@@ -47,12 +47,13 @@ const Users = ({ currentUser = {} }) => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleCreateUser = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
 
     try {
       await userService.create(formData);
@@ -101,9 +102,9 @@ const Users = ({ currentUser = {} }) => {
   const openEditModal = (user) => {
     setSelectedUser(user);
     setFormData({
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      name: user.name || "",
+      email: user.email || "",
+      role: user.role || "member",
     });
     setEditModalOpen(true);
   };
@@ -115,47 +116,45 @@ const Users = ({ currentUser = {} }) => {
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase());
+      (user.name || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (user.email || "").toLowerCase().includes(searchQuery.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
     return matchesSearch && matchesRole;
   });
 
+if (loading) return <Loading />;
+  if (error) return <Error message={error} />;
+  
   if (currentUser.role !== "admin") {
     return (
       <Error message="You don't have permission to access this page" />
     );
   }
 
-  if (loading) return <Loading />;
-  if (error) return <Error message={error} onRetry={loadData} />;
-
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            User Management
-          </h1>
-          <p className="text-gray-600">
-            Manage user accounts and permissions
+          <h1 className="text-2xl font-bold text-gray-900">Users</h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Manage team members and their permissions
           </p>
         </div>
         <Button onClick={() => setCreateModalOpen(true)}>
-          <ApperIcon name="UserPlus" size={20} />
-          Add User
+          <ApperIcon name="Plus" size={16} />
+          <span className="ml-2">Add User</span>
         </Button>
       </div>
 
-      <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <SearchBar
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search users..."
-            />
-          </div>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex-1">
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search by name or email..."
+          />
+        </div>
+        <div>
           <Select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
@@ -198,17 +197,29 @@ const Users = ({ currentUser = {} }) => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredUsers.map((user) => (
                   <tr key={user.Id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <UserCard user={user} showRole={false} />
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="flex-shrink-0 h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center">
+                          <span className="text-primary-600 font-medium text-sm">
+                            {(user.name || "?").charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="ml-4">
+                          <div className="text-sm font-medium text-gray-900">
+                            {user.name}
+                          </div>
+                          <div className="text-sm text-gray-500">{user.email}</div>
+                        </div>
+                      </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <RoleBadge role={user.role} />
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
-                      {format(new Date(user.createdAt), "MMM dd, yyyy")}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {user.CreatedAt ? format(new Date(user.CreatedAt), "MMM d, yyyy") : "N/A"}
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div className="flex justify-end gap-2">
                         <Button
                           size="sm"
                           variant="ghost"
@@ -221,7 +232,8 @@ const Users = ({ currentUser = {} }) => {
                           variant="ghost"
                           onClick={() => openDeleteModal(user)}
                           disabled={user.Id === currentUser.Id}
-                        >
+
+>
                           <ApperIcon name="Trash2" size={16} className="text-error" />
                         </Button>
                       </div>
