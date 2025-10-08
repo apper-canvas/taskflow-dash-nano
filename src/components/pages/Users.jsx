@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { format } from "date-fns";
 import userService from "@/services/api/userService";
 
-const Users = ({ currentUser }) => {
+const Users = ({ currentUser = {} }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

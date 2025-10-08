@@ -138,7 +138,7 @@ useEffect(() => {
   return (
     <AuthContext.Provider value={authMethods}>
       <div className="flex min-h-screen bg-[#f8fafc]">
-        {isAuthenticated && <Sidebar />}
+{isAuthenticated && <Sidebar />}
         <main className={`flex-1 ${isAuthenticated ? 'lg:ml-0' : ''} p-6 lg:p-8 overflow-x-hidden`}>
           <Routes>
             <Route path="/login" element={<Login />} />
