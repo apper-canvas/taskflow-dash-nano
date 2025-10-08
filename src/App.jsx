@@ -145,13 +145,13 @@ useEffect(() => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/callback" element={<Callback />} />
             <Route path="/error" element={<ErrorPage />} />
-            <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
+<Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
             <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
-            <Route path="/" element={isAuthenticated ? <Dashboard /> : <Login />} />
-            <Route path="/projects" element={isAuthenticated ? <Projects /> : <Login />} />
-            <Route path="/projects/:id" element={isAuthenticated ? <ProjectDetail /> : <Login />} />
-            <Route path="/tasks" element={isAuthenticated ? <Tasks /> : <Login />} />
-            <Route path="/users" element={isAuthenticated ? <Users /> : <Login />} />
+            <Route path="/" element={isAuthenticated ? <Dashboard currentUser={user} /> : <Login />} />
+            <Route path="/projects" element={isAuthenticated ? <Projects currentUser={user} /> : <Login />} />
+            <Route path="/projects/:id" element={isAuthenticated ? <ProjectDetail currentUser={user} /> : <Login />} />
+            <Route path="/tasks" element={isAuthenticated ? <Tasks currentUser={user} /> : <Login />} />
+            <Route path="/users" element={isAuthenticated ? <Users currentUser={user} /> : <Login />} />
           </Routes>
         </main>
       </div>
