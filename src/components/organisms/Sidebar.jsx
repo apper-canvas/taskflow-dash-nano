@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
 import Avatar from "@/components/atoms/Avatar";
-
+import { AuthContext } from "@/App";
 const Sidebar = ({ currentUser }) => {
+  const { logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = [
@@ -76,8 +77,7 @@ const Sidebar = ({ currentUser }) => {
               <NavItem key={item.path} item={item} mobile={true} />
             ))}
           </nav>
-
-          {currentUser && (
+{currentUser && (
             <div className="p-4 border-t border-gray-200">
               <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                 <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
@@ -89,6 +89,13 @@ const Sidebar = ({ currentUser }) => {
                     {currentUser.role.replace("_", " ")}
                   </p>
                 </div>
+                <button
+                  onClick={logout}
+                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  title="Logout"
+                >
+                  <ApperIcon name="LogOut" size={20} />
+                </button>
               </div>
             </div>
           )}
@@ -116,7 +123,7 @@ const Sidebar = ({ currentUser }) => {
             ))}
           </nav>
 
-          {currentUser && (
+{currentUser && (
             <div className="p-4 border-t border-gray-200">
               <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                 <Avatar src={currentUser.avatar} alt={currentUser.name} size="md" />
@@ -128,6 +135,13 @@ const Sidebar = ({ currentUser }) => {
                     {currentUser.role.replace("_", " ")}
                   </p>
                 </div>
+                <button
+                  onClick={logout}
+                  className="text-gray-400 hover:text-red-500 transition-colors"
+                  title="Logout"
+                >
+                  <ApperIcon name="LogOut" size={20} />
+                </button>
               </div>
             </div>
           )}
